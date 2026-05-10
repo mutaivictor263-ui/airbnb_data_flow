@@ -7,7 +7,7 @@ git remote add origin https://github.com/mutaivictor263-ui/airbnb_data_flow.git
 git push -u origin main
 
 
-## Ingest script:
+### Ingest script:
 params
 
 pg_user = airbnb
@@ -21,10 +21,10 @@ target-table = new_york_listings
 
 ### execute the ingestion scirpt using the following commands:
 
-###### Use all defaults
+### Use all defaults
 uv run python ingest_data.py
 
-###### Overide specific parameters
+### Overide specific parameters
 uv run python ingest_data.py \
   --pg-user=airbnb \
   --pg-password=airbnb \
@@ -33,10 +33,10 @@ uv run python ingest_data.py \
   --pg-db=airbnb_data \
   --target-table=new_york_listings
 
-###### See all available options 
+### See all available options 
 uv run python ingest_data.py --help
 
-##### run pgAdmin as a container with the postgres container
+### run pgAdmin as a container with the postgres container
 docker run -it \
   -e PGADMIN_DEFAULT_EMAIL="airbnb@newyork.com" \
   -e PGADMIN_DEFAULT_PASSWORD="airbnb" \
@@ -45,12 +45,12 @@ docker run -it \
   dpage/pgadmin4
 
 
-###### create a virtual docker network called pgbnb-network
+### create a virtual docker network called pgbnb-network
 docker network create pgbnb-network
 
 
-#### stop the previous containers and re-run them with the network configuration
-###### Run PostgreSQL on the network
+### stop the previous containers and re-run them with the network configuration
+### Run PostgreSQL on the network
 docker run -it \
   -e POSTGRES_USER=airbnb \
   -e POSTGRES_PASSWORD=airbnb \
@@ -60,7 +60,7 @@ docker run -it \
   --network=pgbnb-network \
   postgres:18
 
-###### In another terminal, run pgAdmin on the same network
+### In another terminal, run pgAdmin on the same network
   docker run -it \
   -e PGADMIN_DEFAULT_EMAIL="airbnb@newyork.com" \
   -e PGADMIN_DEFAULT_PASSWORD="airbnb" \
@@ -71,10 +71,10 @@ docker run -it \
   dpage/pgadmin4
 
 
-##### Build the Docker image
+### Build the Docker image
 docker build -t airbnb_ingest:latest .
 
-##### run the containerized ingestion
+### run the containerized ingestion
 
   docker run -it \
     --network=pgbnb-network \
