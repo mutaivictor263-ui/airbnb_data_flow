@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:18
+    container_name: airbnb-postgres
+    environment:
+      POSTGRES_USER: airbnb
+      POSTGRES_PASSWORD: airbnb
+      POSTGRES_DB: airbnb_data
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - airbnb_postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: airbnb-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: airbnb@newyork.com
+      PGADMIN_DEFAULT_PASSWORD: airbnb
+    ports:
+      - "8092:80"
+    
+    volumes:
+      - airbnb_pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+
+volumes:
+  airbnb_postgres_data:
+  airbnb_pgadmin_data:

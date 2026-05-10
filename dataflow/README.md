@@ -86,3 +86,29 @@ docker build -t airbnb_ingest:latest .
     --pg-db=airbnb_data \
     --target-table=new_york_listings
 
+### docker compose 
+use docker compose to launch multiple containers using a single file configuration
+
+Use GPT Prompt : turn this into a docker compose file : 
+docker run -it \
+  -e POSTGRES_USER=airbnb \
+  -e POSTGRES_PASSWORD=airbnb \
+  -e POSTGRES_DB=airbnb_data \
+  -p 5432:5432 \
+   --name airbnb-postgres \
+  --network=pgbnb-network \
+  postgres:18
+
+  docker run -it \
+  -e PGADMIN_DEFAULT_EMAIL="airbnb@newyork.com" \
+  -e PGADMIN_DEFAULT_PASSWORD="airbnb" \
+  -v airbnb_pgadmin_data:/var/lib/pgadmin \
+  -p 8092:80 \
+  --network=pgbnb-network \
+  --name airbnb-pgadmin \
+  dpage/pgadmin4
+
+
+### Build the Docker image
+docker build -t airbnb_ingest:latest .
+
